@@ -3,13 +3,13 @@ package com.bootcamp.probability;
 class Probability {
 	private static final int MINIMUM_PROBABILITY = 0;
 	private static final int MAXIMUM_PROBABILITY = 1;
-	private double chancesOfGetting;
+	private double value;
 
 	private Probability(double value) {
-		this.chancesOfGetting = value;
+		this.value = value;
 	}
 
-	public static Probability initialize(double value) throws InvalidProbabilityException {
+	static Probability initialize(double value) throws InvalidProbabilityException {
 		Probability.validate(value);
 		return new Probability(value);
 	}
@@ -21,11 +21,11 @@ class Probability {
 	}
 
 	Probability not() {
-		return new Probability(MAXIMUM_PROBABILITY - this.chancesOfGetting);
+		return new Probability(MAXIMUM_PROBABILITY - this.value);
 	}
 
 	Probability and(Probability otherProbability) {
-		double probabilityValue = this.chancesOfGetting * otherProbability.chancesOfGetting;
+		double probabilityValue = this.value * otherProbability.value;
 		return new Probability(probabilityValue);
 	}
 
@@ -35,7 +35,11 @@ class Probability {
 		if (otherProbability == null || getClass() != otherProbability.getClass())
 			return false;
 		Probability that = (Probability) otherProbability;
-		return Double.compare(that.chancesOfGetting, chancesOfGetting) == 0;
+		return Double.compare(that.value, value) == 0;
 	}
 
+	Probability or(Probability otherProbability) {
+		double probabilityValue = this.value + otherProbability.value - (this.value * otherProbability.value);
+		return new Probability(probabilityValue);
+	}
 }

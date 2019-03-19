@@ -37,4 +37,11 @@ class ProbabilityTest {
 		Probability actual = probability.and(otherProbability);
 		assertEquals(expected, actual);
 	}
+
+	@Test
+	void shouldReturnOrOfTwoProbabilities() throws InvalidProbabilityException {
+		Probability probability = Probability.initialize(0.5);
+		Probability otherProbability = Probability.initialize(0.5);
+		assertEquals(Probability.initialize(0.75), probability.or(otherProbability));
+	}
 }
