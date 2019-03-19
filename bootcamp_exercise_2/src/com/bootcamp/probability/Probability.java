@@ -5,22 +5,26 @@ class Probability {
 	private static final int MAXIMUM_PROBABILITY = 1;
 	private double chancesOfGetting;
 
-	Probability(double value) throws InvalidProbabilityException {
-		validate(value);
+	private Probability(double value) {
 		this.chancesOfGetting = value;
 	}
 
-	private void validate(double value) throws InvalidProbabilityException {
+	public static Probability initialize(double value) throws InvalidProbabilityException {
+		Probability.validate(value);
+		return new Probability(value);
+	}
+
+	private static void validate(double value) throws InvalidProbabilityException {
 		if (value < MINIMUM_PROBABILITY || value > MAXIMUM_PROBABILITY) {
 			throw new InvalidProbabilityException();
 		}
 	}
 
-	Probability getChanceOfNotHappening() throws InvalidProbabilityException {
+	Probability not() {
 		return new Probability(MAXIMUM_PROBABILITY - this.chancesOfGetting);
 	}
 
-	Probability combine(Probability otherProbability) throws InvalidProbabilityException {
+	Probability and(Probability otherProbability) {
 		double probabilityValue = this.chancesOfGetting * otherProbability.chancesOfGetting;
 		return new Probability(probabilityValue);
 	}
