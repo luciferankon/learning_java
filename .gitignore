@@ -5,3 +5,6 @@
 */out/
 **/.DS_STORE
 **/build/*
+**/.gradle/
+**/*.ipr
+**/*.iws

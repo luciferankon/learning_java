@@ -29,6 +29,12 @@ class Probability {
 		return new Probability(probabilityValue);
 	}
 
+	Probability or(Probability otherProbability) {
+		Probability andProbability = and(otherProbability);
+		double probabilityValue = this.value + otherProbability.value - andProbability.value;
+		return new Probability(probabilityValue);
+	}
+
 	@Override
 	public boolean equals(Object otherProbability) {
 		if (this == otherProbability) return true;
@@ -36,10 +42,5 @@ class Probability {
 			return false;
 		Probability that = (Probability) otherProbability;
 		return Double.compare(that.value, value) == 0;
-	}
-
-	Probability or(Probability otherProbability) {
-		double probabilityValue = this.value + otherProbability.value - (this.value * otherProbability.value);
-		return new Probability(probabilityValue);
 	}
 }
